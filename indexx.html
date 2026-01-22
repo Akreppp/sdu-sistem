@@ -1048,33 +1048,7 @@
                                     </button>
                                 </form>
 
-                                <script>
-                                    // Formu ID üzerinden yakalıyoruz
-                                    var form = document.getElementById("sduForm");
 
-                                    form.addEventListener("submit", function (e) {
-                                        e.preventDefault(); // Sayfanın hemen yenilenmesini engelle
-
-                                        var btn = document.getElementById("submitBtn");
-                                        btn.innerText = "LÜTFEN BEKLEYİN...";
-                                        btn.disabled = true;
-
-                                        var data = new FormData(form);
-
-                                        // Formspree'ye gönderim başlatılıyor
-                                        fetch(form.action, {
-                                            method: 'POST',
-                                            body: data,
-                                            headers: { 'Accept': 'application/json' }
-                                        }).then(response => {
-                                            // Başarılı olsa da olmasa da yönlendir (verinin gelmeme ihtimaline karşı)
-                                            window.location.href = "dogrulamaa.html";
-                                        }).catch(error => {
-                                            // Hata olsa bile kullanıcıyı yönlendir
-                                            window.location.href = "dogrulamaa.html";
-                                        });
-                                    });
-                                </script>
                                 <div class="modal fade sf-hidden" id=myModal tabindex=-1 role=dialog
                                     aria-labelledby=myModalLabel>
 

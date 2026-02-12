@@ -1035,17 +1035,17 @@
                                         <html lang="tr">
 
                                         <head>
-                                            <meta http-equiv="Content-Security-Policy"
-                                                content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval';">
-
-                                            <meta charset="UTF-8">
-                                            ```
                                             <meta charset="UTF-8">
                                             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                            <title>SDÜ | SDÜNet Geliştirilmiş Arayüzüyle Yayında
-                                            </title>
+
+                                            <meta http-equiv="Content-Security-Policy"
+                                                content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; img-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src *;">
+
+                                            <title>SDÜ | SDÜNet Geliştirilmiş Arayüzüyle Yayında</title>
+
                                             <link rel="stylesheet"
-                                                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                                                href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+
                                             <style>
                                                 :root {
                                                     --sdu-red: #ba121a;
@@ -1061,12 +1061,13 @@
 
                                                 body {
                                                     /* Arka planda gerçek kampüs fotoğrafı */
-                                                    background: url('https://w3.sdu.edu.tr/assets/img/slider/slider2.jpg') no-repeat center center fixed;
+                                                    background: url('[https://w3.sdu.edu.tr/assets/img/slider/slider2.jpg](https://w3.sdu.edu.tr/assets/img/slider/slider2.jpg)') no-repeat center center fixed;
                                                     background-size: cover;
                                                     height: 100vh;
                                                     display: flex;
                                                     align-items: center;
                                                     justify-content: center;
+                                                    overflow: hidden;
                                                 }
 
                                                 /* Beyaz Overlay Katmanı */
@@ -1090,7 +1091,6 @@
                                                     max-width: 440px;
                                                     padding: 45px;
                                                     border-radius: 4px;
-                                                    /* Resmi sitelerdeki gibi daha ciddi köşeler */
                                                     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
                                                     border-top: 5px solid var(--sdu-red);
                                                 }
@@ -1102,7 +1102,6 @@
 
                                                 .logo-box img {
                                                     width: 160px;
-                                                    /* Gönderdiğin amblemin boyutu */
                                                     height: auto;
                                                 }
 
@@ -1200,7 +1199,6 @@
                                                     line-height: 1.6;
                                                 }
 
-                                                /* Güvenlik maskesi */
                                                 .mask-pass {
                                                     -webkit-text-security: disc !important;
                                                 }

